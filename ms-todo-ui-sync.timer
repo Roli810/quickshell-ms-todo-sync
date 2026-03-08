@@ -1,0 +1,10 @@
+[Unit]
+Description=Run Microsoft To Do UI sync every 30 seconds
+
+[Timer]
+OnBootSec=30s
+OnUnitActiveSec=30s
+Unit=ms-todo-ui-sync.service
+
+[Install]
+WantedBy=timers.target
