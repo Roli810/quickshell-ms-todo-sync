@@ -1,4 +1,4 @@
-“Quickshell Microsoft To Do Sync
+Quickshell Microsoft To Do Sync
 ===============================
 
 Sync the **Quickshell / Illogical-Impulse sidebar todo widget** with **Microsoft To Do**.
@@ -180,4 +180,4 @@ Because this relies on the Microsoft To Do web interface:
 *   This is not an official Microsoft integration
     
 
-For personal desktop use it has proven reliable.”
+For personal desktop use it has proven reliable.
