@@ -1,54 +1,47 @@
 Quickshell Microsoft To Do Sync
 
-A small utility that synchronizes the Quickshell / Illogical-Impulse sidebar todo widget with Microsoft To Do.
+Sync the Quickshell / Illogical-Impulse sidebar todo widget with Microsoft To Do.
 
-It allows the Quickshell todo sidebar to stay in sync with a real Microsoft To Do list without using the Microsoft Graph API or Azure configuration.
+This tool keeps the Quickshell sidebar tasks synchronized with a Microsoft To Do list without using Microsoft Graph, Azure, or any API setup.
 
-The tool works by reading and writing the same JSON file that the Quickshell widget already uses.
+Instead, it uses a logged-in browser session to read and update tasks.
 
-What This Does
+What It Does
 
-The Quickshell todo widget stores its tasks locally in a JSON file.
-
-Example location:
+Quickshell stores its sidebar tasks locally in:
 
 ~/.local/state/quickshell/user/todo.json
 
-This tool:
+This tool syncs that file with Microsoft To Do.
 
-Opens Microsoft To Do using a persistent browser session.
+It will:
 
-Reads tasks from a specific list.
+• read tasks from a selected Microsoft To Do list
+• update the local Quickshell todo file
+• apply local changes back to Microsoft To Do
 
-Synchronizes them with the local Quickshell todo file.
+Result: bidirectional sync
 
-Applies local changes back to Microsoft To Do.
-
-The result is bidirectional sync between:
-
-Microsoft To Do
-
-the Quickshell sidebar widget
-
+Quickshell sidebar  ⇄  Microsoft To Do
 Why This Exists
 
-The official Microsoft To Do API requires:
+Using the official Microsoft To Do API requires:
 
-Azure / Entra application registration
+Azure / Entra app registration
 
-Microsoft Graph configuration
+Microsoft Graph setup
 
-OAuth tokens
+OAuth configuration
 
-For simple personal desktop setups this is unnecessarily complex.
+For a personal desktop setup this is often unnecessary.
 
-This tool instead uses UI automation through Playwright, allowing synchronization using your already logged-in browser session.
+This tool avoids all of that by using Playwright UI automation with your existing logged-in session.
 
-No API setup is required.
+No API configuration required.
 
-Supported Environment
+Tested Environment
 
-The tool was developed and tested on:
+Developed and tested with:
 
 Arch Linux
 
@@ -58,27 +51,22 @@ Quickshell
 
 Illogical-Impulse dotfiles
 
-It should work on most Linux systems that support:
+It should also work on most Linux systems with:
 
 Python
 
 Playwright
 
-systemd user services
+systemd
 
 Features
 
-Bidirectional sync
-
-Works with existing Microsoft login session
-
-No Azure or Microsoft Graph configuration
-
-Works with the existing Quickshell todo widget
-
-Can run completely in the background
-
-Optional systemd timer for automatic syncing
+• bidirectional sync
+• no Microsoft API setup required
+• works with existing Microsoft login session
+• integrates with the existing Quickshell todo widget
+• runs completely in the background
+• optional systemd timer for automatic syncing
 
 How It Works
 
@@ -86,87 +74,65 @@ The Quickshell widget reads tasks from:
 
 ~/.local/state/quickshell/user/todo.json
 
-Each task looks like this:
+Each task looks like:
 
 {
   "content": "task text",
   "done": false
 }
 
-This tool:
+The sync tool:
 
-Opens Microsoft To Do
+opens Microsoft To Do
 
-Navigates to the selected list
+loads the selected list
 
-Scrapes task titles and completion states
+reads task titles and completion state
 
-Compares them with the local file
+compares them with the local file
 
-Applies any changes on both sides
+applies any changes both ways
 
-Updates the local JSON file
+updates the local JSON file
 
-Background Sync
+Running in the Background
 
-The recommended setup is a systemd user timer.
+The recommended setup uses a systemd user timer.
 
-This allows the sync to run automatically in the background without any visible window.
+This runs the sync automatically every ~30 seconds.
 
-Typical setup:
+Advantages:
 
-service runs the sync script
-
-timer runs it every ~30 seconds
-
-This provides near-real-time synchronization between Microsoft To Do and Quickshell.
+• no terminal needed
+• no visible browser window
+• automatic syncing in the background
 
 First Time Setup
 
-The first run requires opening a browser window so the script can use a persistent login session.
+The first run opens a browser window.
 
 You simply:
 
 sign in to Microsoft To Do
 
-open the desired task list
+open the desired list
 
-confirm the setup
+confirm setup
 
-After this step, synchronization can run headless in the background.
-
-Configuration
-
-The tool uses a small JSON configuration file where you define:
-
-the Microsoft To Do list name
-
-the location of the Quickshell todo file
-
-where the Playwright browser profile is stored
-
-whether the browser runs headless
-
-whether task deletions should sync
-
-Once configured, the script runs automatically without user interaction.
+After that the script can run headless in the background.
 
 Limitations
 
-Because this tool relies on the Microsoft To Do web interface:
+Because this relies on the Microsoft To Do web UI:
 
-Changes to the Microsoft To Do website may break selectors
-
-Duplicate task titles are not supported
-
-This is not an official Microsoft integration
-
-However, for personal desktop setups it has proven reliable.
+• UI changes from Microsoft could break selectors
+• duplicate task titles are not supported
+• this is not an official Microsoft integration
 
 Security
 
 This tool does not store passwords.
 
-Authentication relies on the existing browser session stored in the Playwright profile.
+Authentication relies on the browser session stored in the Playwright profile.
 
-No Microsoft credentials are ever embedded in the script.
+No Microsoft credentials are embedded in the script.
