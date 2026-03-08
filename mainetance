@@ -1,0 +1,8 @@
+journalctl --user -u ms-todo-ui-sync.service -n 100 --no-pager
+
+/home/roland/ms-todo-ui-sync/.venv/bin/python /home/roland/ms-todo-ui-sync/ms_todo_ui_sync.py --debug
+
+
+timer change:
+
+nano ~/.config/systemd/user/ms-todo-ui-sync.timer

@@ -1,0 +1,12 @@
+{
+  "todo_file": "/home/roland/.local/state/quickshell/user/todo.json",
+  "snapshot_file": "/home/roland/.local/state/quickshell/user/todo-sync-state.json",
+  "lock_file": "/home/roland/.local/state/quickshell/user/todo.json.lock",
+  "profile_dir": "/home/roland/.local/share/ms-todo-ui-sync/playwright-profile",
+  "todo_url": "https://to-do.live.com/tasks/",
+  "list_name": "Sidebar",
+  "headless": true,
+  "sync_deletions": true,
+  "settle_ms": 1200,
+  "debug": false
+}
