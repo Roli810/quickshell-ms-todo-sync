@@ -1,0 +1,6 @@
+[Unit]
+Description=Sync Microsoft To Do UI with Quickshell sidebar
+
+[Service]
+Type=oneshot
+ExecStart=/home/roland/ms-todo-ui-sync/.venv/bin/python /home/roland/ms-todo-ui-sync/ms_todo_ui_sync.py
